@@ -9,7 +9,6 @@ const { Logtail } = require('@logtail/node');
 const { LogtailTransport } = require('@logtail/winston');
 
 const logLevels = {
-    
     levels: {
         trace: 6,
         debug: 5,
@@ -30,7 +29,6 @@ const logLevels = {
     }
 };
 
-
 class HomeyLog extends Homey.App {
     constructor(...args) {
         super(...args);
@@ -39,12 +37,17 @@ class HomeyLog extends Homey.App {
             logtail: null
         };
 
-        if(!this.HomeyLogConfig) {
-            this.HomeyLogConfig = {
-                console: true,
-                publish: true,
-                console_level: 'info',
-                publish_level: 'info'
+        this.HomeyLogData.config = {
+            console: '1',
+            publish: '1',
+            console_level: 'info',
+            publish_level: 'info'
+        };
+
+        if (Homey.env.HOMEY_BETTERSTACK_CONFIG) {
+            this.HomeyLogData.config = {
+                ...this.HomeyLogData.config,
+                ...Homey.env.HOMEY_BETTERSTACK_CONFIG
             };
         }
 
@@ -82,8 +85,8 @@ class HomeyLog extends Homey.App {
                         return `[${level}] ${message}`;
                     })
                 ),
-                silent: !this.HomeyLogConfig.console,
-                level: this.HomeyLogConfig.console_level
+                silent: !parseInt(this.HomeyLogData.config.console),
+                level: this.HomeyLogData.config.console_level
             })
         ];
 
@@ -92,8 +95,8 @@ class HomeyLog extends Homey.App {
                 new LogtailTransport(this.HomeyLogData.logtail, {
                     handleExceptions: true,
                     handleRejections: true,
-                    silent: !this.HomeyLogConfig.publish,
-                    level: this.HomeyLogConfig.publish_level
+                    silent: !parseInt(this.HomeyLogData.config.publish),
+                    level: this.HomeyLogData.config.publish_level
                 })
             );
         }
@@ -105,7 +108,6 @@ class HomeyLog extends Homey.App {
 
         this.HomeyLogInstance = this.HomeyLogData['container'].get('HomeyLogInstance');
     }
-
 
     async trace() {
         this.HomeyLogInstance.log('trace', util.format(...arguments));

@@ -131,30 +131,18 @@ In Betterstack:
 ### Change Log Level
 
 It is possible to alter the loglevels and change the enable/disable the output to console/betterstack.
-Add the following to your Homey app:
+Add the following to your Homey app env.json:
 
-```javascript
-class App extends HomeyLog {
-  constructor(...args) {
-    super(...args);
-
-    this.HomeyLogConfig = {
-      console: true,
-      console_level: "warn",
-      publish: true,
-      publish_level: "error",
-    };
-  }
-
-  async onInit() {
-    this.log(
-      `${this.homey.manifest.id} - ${this.homey.manifest.version} started...`
-    );
-  }
-}
-
-module.exports = App;
+```json
+    "HOMEY_BETTERSTACK_CONFIG": {
+        "console": "1",
+        "publish": "1",
+        "console_level": "info",
+        "publish_level": "info"
+    }
 ```
+
+Above values are also the default values of the app.
 
 ### Log Levels
 
