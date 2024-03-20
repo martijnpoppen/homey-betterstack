@@ -36,6 +36,8 @@ yarn add homey-betterstack
 const HomeyLog = require("homey-betterstack");
 ```
 
+<br><br>
+
 ### Extend the app class
 
 Edit the app class to extend `HomeyLog`:
@@ -50,6 +52,8 @@ class App extends Homey.App {
 class App extends HomeyLog {
 ```
 
+<br><br>
+
 ### Logging from app.js
 
 Use `this.log` or `this.error` within your `app.js`:
@@ -59,6 +63,8 @@ this.log("Event occurred");
 this.error("Error occurred", error);
 ```
 
+<br><br>
+
 ### Logging from devices and drivers
 
 Use `this.homey.app.log` from within your devices and drivers:
@@ -67,6 +73,8 @@ Use `this.homey.app.log` from within your devices and drivers:
 this.homey.app.log("Event occurred in device/driver");
 this.homey.app.error("Error occurred in device/driver", error);
 ```
+
+<br><br>
 
 ### Note:
 
@@ -84,6 +92,7 @@ Make sure to **remove** any log functions in your app as they will overwrite the
     }
 ```
 
+<br><br>
 
 ## Example
 
@@ -101,6 +110,8 @@ class App extends HomeyLog {
 module.exports = App;
 ```
 
+<br><br>
+
 ## Result
 
 In the terminal:
@@ -113,4 +124,51 @@ In Betterstack:
 
 <img src="https://github.com/martijnpoppen/homey-betterstack/blob/main/assets/image1.png?raw=true">
 
+<br><br>
+
+## Configuration
+
+### Change Log Level
+
+It is possible to alter the loglevels and change the enable/disable the output to console/betterstack.
+Add the following to your Homey app:
+
+```javascript
+class App extends HomeyLog {
+  constructor(...args) {
+    super(...args);
+
+    this.HomeyLogConfig = {
+      console: true,
+      console_level: "warn",
+      publish: true,
+      publish_level: "error",
+    };
+  }
+
+  async onInit() {
+    this.log(
+      `${this.homey.manifest.id} - ${this.homey.manifest.version} started...`
+    );
+  }
+}
+
+module.exports = App;
+```
+
+### Log Levels
+
+The following log levels are available:
+
+```javascript
+    trace: 6,
+    debug: 5,
+    info: 4,
+    warn: 3,
+    error: 2,
+    fatal: 1,
+    off: 0
+```
+
+E.G: When setting the level to `warn` everything below `warn` will be logged.
 
