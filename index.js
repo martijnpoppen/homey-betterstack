@@ -38,8 +38,8 @@ class HomeyLog extends Homey.App {
         };
 
         this.HomeyLogData.config = {
-            console: '1',
-            publish: '1',
+            console_enabled: '1',
+            publish_enabled: '1',
             console_level: 'info',
             publish_level: 'info'
         };
@@ -85,7 +85,7 @@ class HomeyLog extends Homey.App {
                         return `[${level}] ${message}`;
                     })
                 ),
-                silent: !parseInt(this.HomeyLogData.config.console),
+                silent: !parseInt(this.HomeyLogData.config.console_enabled),
                 level: this.HomeyLogData.config.console_level
             })
         ];
@@ -95,7 +95,7 @@ class HomeyLog extends Homey.App {
                 new LogtailTransport(this.HomeyLogData.logtail, {
                     handleExceptions: true,
                     handleRejections: true,
-                    silent: !parseInt(this.HomeyLogData.config.publish),
+                    silent: !parseInt(this.HomeyLogData.config.publish_enabled),
                     level: this.HomeyLogData.config.publish_level
                 })
             );

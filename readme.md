@@ -135,8 +135,8 @@ Add the following to your Homey app env.json:
 
 ```json
     "HOMEY_BETTERSTACK_CONFIG": {
-        "console": "1",
-        "publish": "1",
+        "console_enabled": "1",
+        "publish_enabled": "1",
         "console_level": "info",
         "publish_level": "info"
     }
