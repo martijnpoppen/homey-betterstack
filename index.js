@@ -38,12 +38,11 @@ class HomeyLog extends Homey.App {
         };
 
         this.setupHomeyLogLogtail();
-        this.setupHomeyLogLogger();
     }
 
     async setupHomeyLogLogtail() {
         this.HomeyLogData['HomeyId'] = await this.homey.cloud.getHomeyId();
-
+console.log(Homey.env.HOMEY_BETTERSTACK_TOKEN)
         if (Homey.env.HOMEY_BETTERSTACK_TOKEN) {
             this.HomeyLogData.logtail = new Logtail(Homey.env.HOMEY_BETTERSTACK_TOKEN);
             this.HomeyLogData.logtail.use((data) => ({
@@ -53,6 +52,8 @@ class HomeyLog extends Homey.App {
         } else {
             console.error('HomeyLog: No Homey log token found. Please add HOMEY_BETTERSTACK_TOKEN to your env.json');
         }
+
+        this.setupHomeyLogLogger();
     }
 
     async setupHomeyLogLogger() {
