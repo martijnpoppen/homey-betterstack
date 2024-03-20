@@ -94,5 +94,5 @@ In the terminal:
 
 In Betterstack:
 
-<img src="./assets/image1.png">
+<img src="https://github.com/martijnpoppen/homey-betterstack/blob/main/assets/image1.png?raw=true">
 
