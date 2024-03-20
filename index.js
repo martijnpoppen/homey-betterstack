@@ -42,7 +42,7 @@ class HomeyLog extends Homey.App {
 
     async setupHomeyLogLogtail() {
         this.HomeyLogData['HomeyId'] = await this.homey.cloud.getHomeyId();
-console.log(Homey.env.HOMEY_BETTERSTACK_TOKEN)
+
         if (Homey.env.HOMEY_BETTERSTACK_TOKEN) {
             this.HomeyLogData.logtail = new Logtail(Homey.env.HOMEY_BETTERSTACK_TOKEN);
             this.HomeyLogData.logtail.use((data) => ({
