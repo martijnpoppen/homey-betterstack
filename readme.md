@@ -18,13 +18,13 @@ This package provides integration between your Homey app and Betterstack logging
 You can install the package via npm:
 
 ```bash
-npm install node-homey-betterstack
+npm install homey-betterstack
 ```
 
 or 
 
 ```bash
-yarn add node-homey-betterstack
+yarn add homey-betterstack
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ yarn add node-homey-betterstack
 
 ```javascript
 
-const HomeyLog = require('node-homey-betterstack');
+const HomeyLog = require('homey-betterstack');
 ```
 
 ### Extend the app class
