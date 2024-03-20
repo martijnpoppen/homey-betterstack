@@ -1,4 +1,5 @@
 # Homey - Betterstack
+
 📣 Logtail is now part of Better Stack. [Learn more ⇗](https://betterstack.com/press/introducing-better-stack/)
 
 [![Better Stack dashboard](https://github.com/logtail/logtail-js/assets/10132717/96b422e7-3026-49c1-bd45-a946c37211d0)](https://betterstack.com/logs)
@@ -21,18 +22,18 @@ You can install the package via npm:
 npm install homey-betterstack
 ```
 
-or 
+or
 
 ```bash
 yarn add homey-betterstack
 ```
 
 ## Usage
+
 ### Import the package
 
 ```javascript
-
-const HomeyLog = require('homey-betterstack');
+const HomeyLog = require("homey-betterstack");
 ```
 
 ### Extend the app class
@@ -43,7 +44,6 @@ Edit the app class to extend `HomeyLog`:
 //From:
 class App extends Homey.App {
 ```
-
 
 ```javascript
 // To
@@ -64,28 +64,28 @@ this.error("Error occurred", error);
 Use `this.homey.app.log` from within your devices and drivers:
 
 ```javascript
-
 this.homey.app.log("Event occurred in device/driver");
 this.homey.app.error("Error occurred in device/driver", error);
 ```
 
 ## Example
+
 ```javascript
 class App extends HomeyLog {
-    async onInit() {
-        try {       
-            this.log(`${Homey.manifest.id} - ${Homey.manifest.version} started...`);
-        } catch (error) {
-            this.homey.app.log(error);
-        }
+  async onInit() {
+    try {
+      this.log(`${Homey.manifest.id} - ${Homey.manifest.version} started...`);
+    } catch (error) {
+      this.homey.app.log(error);
     }
+  }
 }
 
 module.exports = App;
-
 ```
 
 ## Result
+
 In the terminal:
 
 ```bash
@@ -96,3 +96,18 @@ In Betterstack:
 
 <img src="https://github.com/martijnpoppen/homey-betterstack/blob/main/assets/image1.png?raw=true">
 
+## Note:
+
+Make sure to **remove** any log functions in your app as they will overwrite the log functionality of `Homey-Betterstack`
+
+Not allowed ❌ :
+
+```javascript
+    log() {
+        console.log.bind(this, '[log]').apply(this, arguments);
+    }
+
+    error() {
+        console.error.bind(this, '[error]').apply(this, arguments);
+    }
+```
