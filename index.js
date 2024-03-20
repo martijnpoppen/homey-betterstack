@@ -9,14 +9,15 @@ const { Logtail } = require('@logtail/node');
 const { LogtailTransport } = require('@logtail/winston');
 
 const logLevels = {
+    
     levels: {
-        trace: 0,
-        debug: 1,
-        info: 2,
+        trace: 6,
+        debug: 5,
+        info: 4,
         warn: 3,
-        error: 4,
-        fatal: 5,
-        off: 6
+        error: 2,
+        fatal: 1,
+        off: 0
     },
     colors: {
         trace: 'blue',
@@ -29,6 +30,7 @@ const logLevels = {
     }
 };
 
+
 class HomeyLog extends Homey.App {
     constructor(...args) {
         super(...args);
@@ -36,6 +38,15 @@ class HomeyLog extends Homey.App {
         this.HomeyLogData = {
             logtail: null
         };
+
+        if(!this.HomeyLogConfig) {
+            this.HomeyLogConfig = {
+                console: true,
+                publish: true,
+                console_level: 'info',
+                publish_level: 'info'
+            };
+        }
 
         this.setupHomeyLogLogtail();
     }
@@ -70,7 +81,9 @@ class HomeyLog extends Homey.App {
                     printf(({ level, message }) => {
                         return `[${level}] ${message}`;
                     })
-                )
+                ),
+                silent: !this.HomeyLogConfig.console,
+                level: this.HomeyLogConfig.console_level
             })
         ];
 
@@ -78,7 +91,9 @@ class HomeyLog extends Homey.App {
             this.HomeyLogData['transports'].push(
                 new LogtailTransport(this.HomeyLogData.logtail, {
                     handleExceptions: true,
-                    handleRejections: true
+                    handleRejections: true,
+                    silent: !this.HomeyLogConfig.publish,
+                    level: this.HomeyLogConfig.publish_level
                 })
             );
         }
@@ -90,6 +105,7 @@ class HomeyLog extends Homey.App {
 
         this.HomeyLogInstance = this.HomeyLogData['container'].get('HomeyLogInstance');
     }
+
 
     async trace() {
         this.HomeyLogInstance.log('trace', util.format(...arguments));
@@ -113,6 +129,10 @@ class HomeyLog extends Homey.App {
 
     async error() {
         this.HomeyLogInstance.log('error', util.format(...arguments));
+    }
+
+    async fatal() {
+        this.HomeyLogInstance.log('fatal', util.format(...arguments));
     }
 
     async addHomeyLogChild(scope) {
