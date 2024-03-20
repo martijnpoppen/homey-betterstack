@@ -68,6 +68,23 @@ this.homey.app.log("Event occurred in device/driver");
 this.homey.app.error("Error occurred in device/driver", error);
 ```
 
+### Note:
+
+Make sure to **remove** any log functions in your app as they will overwrite the log functionality of `Homey-Betterstack`
+
+#### Not allowed ❌ :
+
+```javascript
+    log() {
+        console.log.bind(this, '[log]').apply(this, arguments);
+    }
+
+    error() {
+        console.error.bind(this, '[error]').apply(this, arguments);
+    }
+```
+
+
 ## Example
 
 ```javascript
@@ -96,18 +113,4 @@ In Betterstack:
 
 <img src="https://github.com/martijnpoppen/homey-betterstack/blob/main/assets/image1.png?raw=true">
 
-## Note:
 
-Make sure to **remove** any log functions in your app as they will overwrite the log functionality of `Homey-Betterstack`
-
-Not allowed ❌ :
-
-```javascript
-    log() {
-        console.log.bind(this, '[log]').apply(this, arguments);
-    }
-
-    error() {
-        console.error.bind(this, '[error]').apply(this, arguments);
-    }
-```
