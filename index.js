@@ -33,16 +33,18 @@ class HomeyLog extends Homey.App {
     constructor(...args) {
         super(...args);
 
+        this.HomeyLogInstance = console;
+
         this.HomeyLogData = {
-            logtail: null
+            logtail: null,
+            config: {
+                console_enabled: '1',
+                publish_enabled: '1',
+                console_level: 'info',
+                publish_level: 'info'
+            }
         };
 
-        this.HomeyLogData.config = {
-            console_enabled: '1',
-            publish_enabled: '1',
-            console_level: 'info',
-            publish_level: 'info'
-        };
 
         if (Homey.env.HOMEY_BETTERSTACK_CONFIG) {
             this.HomeyLogData.config = {
