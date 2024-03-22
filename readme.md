@@ -56,22 +56,34 @@ class App extends HomeyLog {
 
 ### Logging from app.js
 
-Use `this.log` or `this.error` within your `app.js`:
+Use `this.log` or `this.error` etc within your `app.js`:
 
 ```javascript
-this.log("Event occurred");
+this.trace("Event occurred");
+this.debug("Event occurred");
+this.info("Event occurred"); // log is the same as info
+this.log("Event occurred"); // log is the same as info
+this.warn("Warning occurred", error);
 this.error("Error occurred", error);
+this.fatal("Fatal error occurred", error);
 ```
 
 <br><br>
 
 ### Logging from devices and drivers
 
-Use `this.homey.app.log` from within your devices and drivers:
+Use `this.homey.app.log` etc from within your devices and drivers:
 
 ```javascript
-this.homey.app.log("Event occurred in device/driver");
+this.homey.app.trace("Event occurred in device/driver");
+this.homey.app.debug("Event occurred in device/driver");
+this.homey.app.log("Event occurred in device/driver"); // log is the same as info
+this.homey.app.log("Event occurred in device/driver"); // log is the same as info
+this.homey.app.warn("Warning occurred in device/driver", error);
 this.homey.app.error("Error occurred in device/driver", error);
+this.homey.app.fatal("Fatal error occurred in device/driver", error);
+
+
 ```
 
 <br><br>
