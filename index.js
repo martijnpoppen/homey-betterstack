@@ -15,8 +15,7 @@ const logLevels = {
         info: 4,
         warn: 3,
         error: 2,
-        fatal: 1,
-        off: 0
+        fatal: 1
     },
     colors: {
         trace: 'blue',
@@ -24,8 +23,7 @@ const logLevels = {
         info: 'green',
         warn: 'yellow',
         error: 'red',
-        fatal: 'red',
-        off: 'grey'
+        fatal: 'bold white redBG'
     }
 };
 
@@ -76,7 +74,7 @@ class HomeyLog extends Homey.App {
         this.setupHomeyLogLogger();
     }
 
-    async setupHomeyLogLogger() {
+    setupHomeyLogLogger() {
         addColors(logLevels.colors);
 
         this.HomeyLogData['container'] = new Container();
@@ -115,35 +113,35 @@ class HomeyLog extends Homey.App {
         this.HomeyLogInstance = this.HomeyLogData['container'].get('HomeyLogInstance');
     }
 
-    async trace() {
+    trace() {
         this.HomeyLogInstance.log('trace', util.format(...arguments));
     }
 
-    async debug() {
+    debug() {
         this.HomeyLogInstance.log('debug', util.format(...arguments));
     }
 
-    async info() {
+    info() {
         this.HomeyLogInstance.log('info', util.format(...arguments));
     }
 
-    async log() {
+    log() {
         this.HomeyLogInstance.log('info', util.format(...arguments));
     }
 
-    async warn() {
+    warn() {
         this.HomeyLogInstance.log('warn', util.format(...arguments));
     }
 
-    async error() {
+    error() {
         this.HomeyLogInstance.log('error', util.format(...arguments));
     }
 
-    async fatal() {
+    fatal() {
         this.HomeyLogInstance.log('fatal', util.format(...arguments));
     }
 
-    async addHomeyLogChild(scope) {
+    addHomeyLogChild(scope) {
         if (!scope.length || !this.HomeyLogData.logtail) {
             return this.HomeyLogInstance;
         }
