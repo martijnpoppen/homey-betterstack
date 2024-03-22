@@ -63,7 +63,11 @@ class HomeyLog extends Homey.App {
             this.HomeyLogData.logtail = new Logtail(Homey.env.HOMEY_BETTERSTACK_TOKEN);
             this.HomeyLogData.logtail.use((data) => ({
                 ...data,
-                homeyId: this.HomeyLogData['HomeyId']
+                homeyId: this.HomeyLogData['HomeyId'],
+                homeyApp: this.homey.manifest.id,
+                homeyAppVersion: this.homey.manifest.version,
+                homeyPlatformVersion: this.homey.platformVersion,
+                homeyPlatform: this.homey.platform
             }));
         } else {
             console.error('HomeyLog: No Homey log token found. Please add HOMEY_BETTERSTACK_TOKEN to your env.json');
