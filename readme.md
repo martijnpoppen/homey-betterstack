@@ -166,8 +166,7 @@ The following log levels are available:
     info: 4,
     warn: 3,
     error: 2,
-    fatal: 1,
-    off: 0
+    fatal: 1
 ```
 
 E.G: When setting the level to `warn` everything below `warn` will be logged.
