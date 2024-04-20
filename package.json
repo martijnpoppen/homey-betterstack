@@ -8,7 +8,8 @@
     "url": "git+https://github.com/martijnpoppen/homey-betterstack.git"
   },
   "scripts": {
-    "pretty": "prettier --write \"./drivers/**/*.json\""
+    "pretty": "prettier --write \"./drivers/**/*.json\"",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@logtail/node": "^0.4.21",
